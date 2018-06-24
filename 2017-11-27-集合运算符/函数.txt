@@ -1,0 +1,31 @@
+select length('abc') from dual;		--求长度    3
+
+select concat('a','b') from dual;	--和连接运算符||一样
+
+select upper('abc') from dual;		--大写		ABC
+
+select initcap('abc') from dual;	--首字母大写	Abc
+
+select lower('ABC') from dual;		--字母小写	abc
+
+SQL> select lpad('ldzy',6,'www') from dual	--在左侧填充指定字符  wwldzy
+
+SQL> select ltrim('www.ldzy.com','www.') from dual;--左侧删去	ldzy.com
+
+SQL> select ascii('a') from dual;		--ascii码值97
+
+select translate('jack','abcd','1234') from dual;--翻译值结果j13k
+y是因为第二个里面没有j，1是因为第二个里面有a，所处位置为第三个里面的1位
+
+select substr('www.ldzy.com',7,2) from dual;--截取zy
+
+select replace('www.ldzy.com','ld','hnld') from dual;--替换www.hnldzy.com
+
+select ename,nvl2(comm,1,0) from emp;		--查询空值如果comm是空的话就显示1，否则0
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+declare				--开始定义变量
+v_deptno emp.deptno%type;	--定义一个变量v_deptno 它的类型等于emp表中的deptno的类型
+v_sal emp.sal%type;
+v_empno emp.empno%type;
+begin
+	v_empno:=&no;			--为v_empno赋值
+	select deptno,sal into v_deptno,v_sal from emp where empno = v_empno;
+--将查找到的结果赋值给v_deptno,v_sal,在此之前系统会要求输入no的值，按回车键录入
+		case
+		when v_deptno = 10 then  	--如果等于10的话
+		   update emp set sal = v_sal+100 where empno = v_empno;
+		when v_deptno = 20 then		--如果等于20的话
+		   update emp set sal = v_sal+100 where empno = v_empno;
+		else				--否则的话
+		   update emp set sal = v_sal+100 where empno = v_empno;
+		end case;			--结束case
+end;				--结束begin

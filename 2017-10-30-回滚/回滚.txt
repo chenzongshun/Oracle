@@ -1,0 +1,8 @@
+savepoint savepoint_name;		--保存小事务
+------------------------------------------各种数据库操作
+rollback to savepoint_name;		--回滚到savepoint_name时的数据库
+但是一但写了commit,或者conn等操作的话，就会失效
+
+update ldzyemp set empname = 'e' where empid = 4;	--修改表记录，记得不要写成了alter
+
+SQL> update ldzyuser set atempid = (select empid from ldzyemp where empname = 'b') where userid = 1;

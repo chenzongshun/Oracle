@@ -1,0 +1,62 @@
+--查询相同部门的员工信息和部门信息
+select * from emp e,dept d where e.deptno=d.deptno;
+
+
+--非等连接（等号以外的）
+select empno,sal,s.* from emp e,salgrade s where sal between s.losal and s.hisal; 
+
+
+--左外连接，左侧全部显示
+		select * from emp e left join dept d one.deptno=d.deptno
+--右外连接，右侧表全部显示	    right
+--全外连接，两个表全显示	    full
+
+
+
+
+---------------------------子查询---------------------------
+--1、IN表示与子查询返回值中的某一个值相等
+--2、ANY表示与子查询返回的任何一个值比较  3 any (2,3,4) true  也就是满足其中一个就行了
+--3、ALL表示与子查询返回值的所有值比较。  3 all (2,3,4) false 要全部满足右边的所有框内的值
+
+--查询所有在任职职位上工资最高的员工
+--首先查出所有的职位，并且工资最高的select max(sal) from emp group by job；
+select empno,ename,job,sal from emp where sal in (select max(sal) from emp group by job); 
+
+
+--查询比20部门某个员工工资高的员工信息。
+
+select empno,ename,sal from emp where sal>ANY (select sal from emp where deptno = 20);
+
+
+--查询比20部门所有员工工资高的员工信息。
+select empno,ename,sal from emp where sal> ALL (select sal from emp where deptno = 20);
+
+
+单行多列子查询
+--查询与7521号雇员的工资、工种都相同的雇员信息
+select empno,ename,sal,job from emp where (sal,job) = (select sal,job from emp where empno = 7521);
+
+--查询与10部门某个雇员的工资、工种都相同的雇员信息
+select empno,ename,sal,job from emp where (sal,job) in (select sal,job from emp where deptno = 10);
+
+
+子查询在执行时需要引用外部父查询的信息
+--查找所有工资高于自己本部门平均工资的员工
+select * from emp e where sal> (select avg(sal) from emp where deptno=e.deptno);
+
+--显示每个部门的信息和人员数量
+select d.*,(select count(*) from emp where deptno=d.deptno) tot from dept d;
+
+
+终极boss-多级嵌套
+--查询比部门（10部门除外）最高平均工资高的部门和平均工资
+1、select deptno from dept where deptno>10;
+2、select max(avg(sal)) from emp where deptno in (20,30,40) group by deptno; 
+3、select deptno,avg(sal) from emp group by deptno having avg(sal)>2145.83334; 
+
+
+
+
+
+

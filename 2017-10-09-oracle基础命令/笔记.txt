@@ -1,0 +1,25 @@
+set linesize 700
+设置一行显示的多少
+
+select status,bytes,name from v$datafile;
+查找数据文件的存放位置，大小和壮态
+
+select name from v$controlfile;
+查看控制文件
+
+
+https://127.0.0.1:1158/em/console/logon/logon
+https://127.0.0.1:1158/em/console
+企业管理器web界面
+
+show parameter db查看数据缓冲区的大小
+alter system set shared_pool_size=20M;修改共享池大小
+
+查询共享池大小
+1、在初始化参数文件中查询参数shared_pool_size（不知道在哪）
+2、show语句查询		show parameter shared_pool_size;
+3、查询数据字典		
+	set pagesize 20 linesize 600设置页面，行数
+	select name,value form v$parameter where name='shared_pool_size';
+
+

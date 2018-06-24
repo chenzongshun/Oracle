@@ -1,0 +1,95 @@
+system 123具有使用数据库权限的命令
+
+conn scott/tiger@orcl		tiger@orcl是默认的密码
+conn system/123@orcl
+conn system/123@orcl as sysdba
+
+disc 断开链接
+exit 关闭sql退出sqlPlus这个界面
+
+set linesize 600	设置行显示多少
+set linesize 80		如果是默认的80，那么会跳新行，行距老大了，不好看
+
+set pagesize 30 	如果内容在30里面的话，那么查询出来的数据将不会进行分页-------------
+
+SQL>set time on		带时间的命令
+00:00:00 SQL>_
+
+store set c:\123.txt	把刚刚的命令都保存到c盘的....
+start c:123.txt		载入保存的命令脚本
+
+如果想要开启就设定分页行距就在C:\app\Administrator\product\11.2.0\dbhome_1\BIN里面放一个loging.sql脚本，脚本里面写分页行距
+
+以示例用户登录来改表的列名
+conn scott/tiger@orcl
+select * from emp;
+-----显示一张表-----
+col sal heading 'shunshun';
+select * from emp;
+-----这张表的sal列标头变成了shunshun----
+
+col job format a6;设置某一列的宽度内容为6个字符
+本来是chenzonghshun执行了format a6之后
+chengz
+ongshu
+n
+
+
+col sal justify right format $99,999.00;
+设置成为@1,100.00
+
+
+
+生成脚本文件
+conn scott/tiger@orcl
+save C:\123.sql，将当前缓冲区的内容存储到脚本文件filename.sql中，缺省文件的扩展名为.sql
+
+
+替换变量
+select * from emp where sql>10000;查询大于100的
+select * from epp where sql>&ldzy动态的查询。
+输入ldzy的值（让你输入ldzy的值）
+
+
+select * from emp where job = 'ss';		--注意''内的内容是区分大小写的如果也要动态的替换呢？
+select * from emp where job = '@JOBname';	
+
+不确定要查询哪一列的信息
+select &ldzy,&ldzy2 form emp;		所以说也可以替换列名的值
+
+甚至是表达式
+select * from emp where &bds;
+输入bds的值:_ _ bds = 3000 		所以是查询bds = 3000的信息表
+
+使用define命令替换变量的值	p73
+define n = 700;
+然后再去查询的话就不会出现'输入ldzy的值'了，这个值直接用700进行替换
+
+ 
+绑定变量相当于临时变量		p75不完整记得看书
+variable ldzy number;
+exec  :ldzy = 7839;
+
+prompt www.ldzy.com    回车之后打印www.ldzy.com，当做脚本命令来作为提示用的
+ 
+accept   接受用户的键盘输入，把用户输入的数据存放得到指定的位置
+ 
+ceeept ldzy001 number promt '请输入1-10的数字，不输入的话默认为0'  default 0;
+
+pause '暂停时向用户显示的提示信息，按回车继续'
+
+
+help spool帮助
+
+sppool的使用，假脱机 p76
+
+注释方式 	rem 开始运行程序...
+			-- 开始运行程序
+			/*开始运行程序*/
+
+
+host	临时进入操作系统的命令行模式
+
+select * from emp order by deptno;进行排序
+		
+			

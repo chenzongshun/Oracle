@@ -1,0 +1,188 @@
+创建表空间		--autoextend on：意思是设置表空间自动扩展
+create tablespace ldzy datafile 'd:\ldzy01.dbf' size 50m autoextend on;	
+
+表在运行时可能要的空间临时表空间
+SQL> create temporary tablespace ldzytemp tempfile 'd:\ldzytemp01.dbf' size 300m;
+
+创建用户
+SQL> create user ldzy identified by ldzy
+  2  default tablespace ldzy
+  3  temporary tablespace ldzytemp;
+
+授权登录以及  resource：可以创建簇、表、序列以及PC/SQL变成用方案对象，包块过程、程序包、触发器等。
+grant connect,resource to ldzy;
+
+conn ldzy/ldzy;
+
+创建表
+create table emp001
+(id number(8,0),
+name varchar2(20),
+sex number(1,0),
+birth date,
+phone varchar2(15))
+
+
+--开始插入100万条数据
+declare
+vtoday date;
+vcnt number(8,0):=1000000;
+begin 
+select sysdate into vtoday from dual;
+for i in 1..vcnt loop
+	insert into emp001(id,name,sex,birth,phone) 
+	values(i,'name'||i,mod(i,2),vtoday-i,'phone'||i);
+	if(mod(i,100))=0 then
+		commit;
+	end if;
+end loop;
+end;
+/			--代表着结束
+
+
+analyze table emp001 compute statistics;--分析表
+ set autotrace trace explain;--记得这里，自动显示，，，
+
+
+
+------------------------------------没有设置索引之前------------------------------------
+SQL> select * from emp001 where id = 849765;
+
+执行计划
+----------------------------------------------------------
+Plan hash value: 1239659889
+
+----------------------------------------------------------------------------
+| Id  | Operation         | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |        |     1 |    34 |  1649   (1)| 00:00:20 |
+|*  1 |  TABLE ACCESS FULL| EMP001 |     1 |    34 |  1649   (1)| 00:00:20 |
+----------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter("ID"=849765)
+
+
+
+在id列上面创建索引（实际上会生成一个二搽数的数据结构）
+create index idx_id on emp001(id);
+
+
+
+------------------------------------设置索引后------------------------------------
+SQL> select * from emp001 where id = 849765;
+
+执行计划
+----------------------------------------------------------
+Plan hash value: 3082687630
+
+--------------------------------------------------------------------------------------
+| Id  | Operation                   | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |        |     1 |    34 |     4   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| EMP001 |     1 |    34 |     4   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | IDX_ID |     1 |       |     3   (0)| 00:00:01 |
+--------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("ID"=849765)
+
+值得注意的是如果仅仅是像一个字段，比如性别，建立了B数索引，因为里面仅仅只有0和1，所以系统开销和没有建立索引的效率是一样的，还占用了内存，所以应该加入位图索引
+
+创建位图索引，记得前面的关键字bitmap
+create bitmap index idx_sex_bmp on emp001(sex);
+
+
+同义词的使用
+
+有两种类型private当前表空间  public在所有表空间
+conn system/123
+grant create synonym to ldzy;--给ldzy创建同义词的权限
+
+给这个表创建同义词，默认是private的类型
+SQL> create synonym ldzyemp for emp001;
+同义词已创建。
+select * from ldzyemp where id < 10;--然后通过同义词来进行操作
+
+conn system/123
+grant create public synonym to ldzy;--给予创建公用同义词的权限
+
+conn ldzy/ldzy
+SQL> create public synonym pub_emp for scott.emp;--创建公共的同义词同义词已创建。
+
+
+
+select * from user_synonyms;查看当前用户里面所拥有的同义词
+
+
+drop synonym ldzyemp;--删除同义词
+如果是要删除public同义词就要在前面加上public
+
+在当前user中drop public synonym pub_emp;
+如果提示权限不足的话，就要在system下grant给予delete的权限
+或者直接在system里面执行drop public synonym pub_emp;
+
+
+---------------------------------序列的使用---------------------------------
+SQL> conn system/123
+已连接。
+SQL> grant create sequence to scott;
+
+授权成功。
+
+conn scott/tiger
+SQL> create sequence ldzy_seq    --创建一个序列
+  2  increment by 1		序列的起始值
+  3  start with 1
+  4  maxvalue 100
+  5  nominvalue
+  6  nocycle
+  7  nocache;
+
+查询序列的详细信息
+
+SQL> select sequence_name,min_value,max_value,increment_by,last_number from seq;
+
+SEQUENCE_NAME                   MIN_VALUE  MAX_VALUE INCREMENT_BY LAST_NUMBER
+------------------------------ ---------- ---------- ------------ -----------
+LDZY_SEQ                                1        100            1           1
+
+
+查询下一个值，比如一个表已经插入了一条数据，那么序列就加1，这样可以查询下一个值了。
+select ldzy_seq.nextval from dual;
+
+
+
+初识触发器
+
+
+SQL> create or replace trigger bifer_disney_id_pk
+  2  before insert
+  3  on ldzy
+  4  for each row
+  5  begin
+  6  select ldzy_seq.nextval into :new.id from dual;
+  7  end;
+  8  /
+
+触发器已创建
+注意一旦比如如说s列创建了序列的话
+insert into l(s) values(1000);,是不会插入1000的
+
+修改序列的最大值
+SQL> alter sequence ldzy_seq
+  2  maxvalue 500;
+
+删除序列
+drop sequence ldzy_seq;
+
+
+
+
+
+
+

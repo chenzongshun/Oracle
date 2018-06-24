@@ -1,0 +1,60 @@
+1 建立Web项目
+在D:\tomcat\webapps\中建立basicSyntax项目，在该项目中添加WEB-INF，WEB-INF\classes\，WEB-INF\lib\和WEB-INF\web.xml。
+把oracle 11g的jdbc驱动ojdbc6.jar拷贝到WEB-INF\lib\目录下。
+启动Tomcat。若Tomcat已处于启动状态需要重启
+ 
+2 建立D:\tomcat\webapps\basicSyntax\connDB.jsp，其内容为:
+<%@ page contentType="text/html;charset=GBK" language="java" errorPage="" %>  
+  
+<%@ page import="java.sql.*" %>  
+  
+   
+<html>  
+  
+   
+  
+<head>  
+  
+  <title>查询Oracle测试</title>  
+  
+</head>  
+  
+   
+  
+<body>  
+  
+<%  
+  
+Class.forName("oracle.jdbc.driver.OracleDriver");  
+  
+Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","tiger");  
+  
+Statement stmt=conn.createStatement();  
+  
+ResultSet rs=stmt.executeQuery("select * from emp");  
+  
+%>  
+  
+<table bgcolor="#9999dd" border="1" width="500">  
+  
+    <% while(rs.next()){ %>  
+  
+    <tr>  
+  
+        <td><%=rs.getString(1)%></td>  
+  
+        <td><%=rs.getString(2)%></td>  
+  
+        <td><%=rs.getString(3)%></td>  
+  
+    </tr>  
+  
+    <% } %>  
+  
+<table>  
+  
+</body>  
+  
+   
+  
+</html>

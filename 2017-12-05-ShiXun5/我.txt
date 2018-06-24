@@ -1,0 +1,37 @@
+1、雇佣日期为第一天的所有雇员的名称
+select * from employee e where last_day(e.hiredate)=hiredate;
+
+2、来公司满三年的			months_between(sysdate,e.hiredate)/12>3
+select e.ename from employee e where months_between(sysdate,e.hiredate)/12>3;
+
+3、截取所有员工姓名的最后两个字			substr(e.ename,2,length(e.ename)-1)
+select substr(e.ename,2,length(e.ename)-1) from employee e;
+
+4、将部门名称中的“部”字替换成为“组”字		replace(d.dname,'部','组')
+select replace(d.dname,'部','组') from department d order by d.deptid desc;
+
+
+
+
+
+1、查询与输入雇员号的工作职位，工资相同的雇员信息
+select * from employee e,job j where(salary,jobid)=(select salary,jobid from employee where empid = 3) and e.jobid = j.id;
+
+
+2、查询比输入部门号中某个雇员工资高的雇员信息
+select * from employee where salary > any (select e.salary from employee e,department d where e.deptid = d.deptid and e.deptid = 3);
+
+
+3、查询比输入部门号中的所有雇员工资高的雇员信息
+select empid,ename,salary from employee where salary > all(select e.salary from employee e ,department d where e.deptid = d.deptid and e.deptid = 3);
+
+
+4、查询所有工资高于所在职位平均工资的雇员信息
+select empid,ename,salary,name from employee e,job j,(select jobid,avg(salary) avgsal from employee group by jobid) b where e.jobid = b.jobid and e.salary > b.avgsal and e.jobid = j.id;
+
+
+5、查找所有在任职职位上工资最高的雇员信息
+select empid,ename,salary,name from employee e,job j where salary in(select max(salary) from employee group by jobid) and e.jobid = j.id;
+
+
+

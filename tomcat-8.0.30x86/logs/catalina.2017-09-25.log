@@ -1,0 +1,45 @@
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.0.30
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Dec 1 2015 22:30:46 UTC
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.0.30.0
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows XP
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            5.1
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk1.7.0_79\jre
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.7.0_79-b15
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         E:\Oracle\tomcat-8.0.30x86
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         E:\Oracle\tomcat-8.0.30x86
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=E:\Oracle\tomcat-8.0.30x86\conf\logging.properties
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.endorsed.dirs=E:\Oracle\tomcat-8.0.30x86\endorsed
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=E:\Oracle\tomcat-8.0.30x86
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=E:\Oracle\tomcat-8.0.30x86
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=E:\Oracle\tomcat-8.0.30x86\temp
+25-Sep-2017 09:52:30.156 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded APR based Apache Tomcat Native library 1.1.33 using APR version 1.5.1.
+25-Sep-2017 09:52:30.171 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+25-Sep-2017 09:52:30.375 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized (OpenSSL 1.0.1m 19 Mar 2015)
+25-Sep-2017 09:52:30.578 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-apr-8080"]
+25-Sep-2017 09:52:30.609 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-apr-8009"]
+25-Sep-2017 09:52:30.609 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 979 ms
+25-Sep-2017 09:52:30.671 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
+25-Sep-2017 09:52:30.671 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.0.30
+25-Sep-2017 09:52:30.734 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory E:\Oracle\tomcat-8.0.30x86\webapps\docs
+25-Sep-2017 09:52:31.593 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory E:\Oracle\tomcat-8.0.30x86\webapps\docs has finished in 859 ms
+25-Sep-2017 09:52:31.593 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory E:\Oracle\tomcat-8.0.30x86\webapps\examples
+25-Sep-2017 09:52:35.906 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory E:\Oracle\tomcat-8.0.30x86\webapps\examples has finished in 4,313 ms
+25-Sep-2017 09:52:35.921 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory E:\Oracle\tomcat-8.0.30x86\webapps\host-manager
+25-Sep-2017 09:52:36.140 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory E:\Oracle\tomcat-8.0.30x86\webapps\host-manager has finished in 219 ms
+25-Sep-2017 09:52:36.140 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory E:\Oracle\tomcat-8.0.30x86\webapps\manager
+25-Sep-2017 09:52:36.359 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory E:\Oracle\tomcat-8.0.30x86\webapps\manager has finished in 219 ms
+25-Sep-2017 09:52:36.359 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory E:\Oracle\tomcat-8.0.30x86\webapps\ROOT
+25-Sep-2017 09:52:36.546 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory E:\Oracle\tomcat-8.0.30x86\webapps\ROOT has finished in 187 ms
+25-Sep-2017 09:52:36.562 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-apr-8080"]
+25-Sep-2017 09:52:36.578 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-apr-8009"]
+25-Sep-2017 09:52:36.593 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 5977 ms
+25-Sep-2017 11:40:55.031 INFO [Thread-3] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-apr-8080"]
+25-Sep-2017 11:40:55.093 INFO [Thread-3] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-apr-8009"]
+25-Sep-2017 11:40:55.140 INFO [Thread-3] org.apache.catalina.core.StandardService.stopInternal Stopping service Catalina
+25-Sep-2017 11:40:55.171 INFO [Thread-3] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-apr-8080"]
+25-Sep-2017 11:40:55.234 INFO [Thread-3] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-apr-8009"]
+25-Sep-2017 11:40:55.281 INFO [Thread-3] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-apr-8080"]
+25-Sep-2017 11:40:55.281 INFO [Thread-3] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-apr-8009"]

@@ -1,0 +1,10 @@
+SQL> edit
+已写入 file afiedt.buf
+
+  1* select '今天是'||sysdate from dual
+SQL> r
+  1* select '今天是'||sysdate from dual
+
+'今天是'||SYSDATE
+--------------------
+今天是27-11月-17

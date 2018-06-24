@@ -1,0 +1,33 @@
+--排序行号
+select deptno,ename,empno, row_number() over (partition by deptno order by empno) as empno_rank from emp;
+
+row_number() over (partition by deptno order by empno) as empno_rank			--其实就是递增
+		按照deptno列分组	按照empno列排序		取名为empno_rank
+
+
+
+
+--RANK(排名，跳跃式)
+select ename,deptno,sal,rank() over(partition by deptno order by sal desc) as sal_rank from emp;
+
+rank() over(partition by deptno order by sal desc) as sal_rank
+		按照deptno列分组	按照sal列倒排序		取名为sal_rank
+
+
+--
+select ename,deptno,sal,dense_rank() over(partition by deptno order by sal desc)as sal_rank from emp;
+
+dence_rank在并列关系是，相关等级不会跳过。rank则跳过
+rank()是跳跃排序，有两个第二名时接下来就是第四名（同样是在各个分组内） 
+dense_rank()l是连续排序，有两个第二名时仍然跟着第三名。
+
+
+
+
+
+
+
+
+
+
+					

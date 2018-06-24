@@ -1,0 +1,59 @@
+
+在下列操作之前连接system用户！！！！！！！！！！！！
+
+1、首先创建自己的用户:
+create user lazy_111 identified by 123;
+
+2、创建之后没有登录数据库的权限，需要赋予:
+   grant create session to ldzy_111;
+
+3、赋予创建数据表的权限：grant create table to ldzy_111;
+
+4、 conn ldzy_111/123@orcl
+
+5、 输入edit弹出记事本文件，也就是打开缓冲区，里面的内容就是之前输入的哪一行数据
+用来编辑表数据如下：
+   create table ldzyemp -- 创建娄底职业技术学院部门表
+   (
+	empid number(3),
+	empname nvarchar2(10),
+	topEmpId number(3),
+	empclass nvarchar2(10)
+   )
+   /  --这个反斜杠不要管它，是输入edit缓冲区命令自动生成的
+
+6、在sql命令行里面输入 r 写入就可以了。。就显示创建成功了。。
+
+约束的类型：
+	非空约束：notnull，防止为某列提供null值
+	唯一约束：unique， 保证在指定的列中没有重复值
+	检查约束：check，检查约束用来限制列值所允许的取值范围
+	主键约束：primary key, 唯一的标示出表的每一行，并且防止出现null值，一个表只能有一个主键约束。。
+	外键约束：foreign key, 一个表中某一个字段是另外一张表中的某一个字段，那这张表中的字段就是另外一张表中字段的外键约束。。。你觉得呢？？？不是很清楚反正我
+
+
+
+
+熟悉上面的约束后就重新创建表。。
+因为之前已经创建了，所以先删除。。
+1、删除表：drop table 表名；
+2、输入 edit 里面输入的内容：
+   create table ldzyemp -- 创建娄底职业技术学院部门表
+   (
+	empid number(3) constraint emp_pk primary key,
+	empname nvarchar2(10) not null,
+	topEmpId number(3),
+	empclass nvarchar2(10),
+        constraint empid_fk foreign key(topEmpId) references ldzyemp(empid) --在同一个表里面定义外键约束，不能直接在定义外键的那一列改，需要在定义的列的后面定义
+   )
+/
+
+
+1、con ldzy_111/123@orcl
+2、alter table ldzyemp nodify empclass not null;添加了非空的约束条件
+
+查询约束条件：
+	select constraint_name,constraint_type,status from user_constraints where table_name='ldzyemp';
+
+
+

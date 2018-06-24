@@ -1,0 +1,204 @@
+--创建雇员表
+create table employee
+(
+empid number(4,0) not null enable,
+badgeid varchar2(20),
+culturelevel varchar(10),
+ename varchar2(10),
+familyplace varchar2(20),
+hiredate date,
+idcard varchar2(20),
+image blob,
+memo varchar2(50),
+mobile varchar2(15),
+nationality varchar2(10),
+salary number(10,2),
+sex varchar2(2),
+status varchar2(4),
+deptid number(4,0),
+jobid number(4,0),
+primary key(empid),
+constraint fk_employee foreign key(deptid) references department(deptid),
+constraint fk_Job foreign key(jobid) references job(id)
+)
+
+--部门表
+create table department
+(
+deptid number(4,0) not null,
+dname varchar2(14),
+loc varchar2(13),
+memo varchar2(20),
+primary key(deptid)
+)
+
+--职位信息表
+create table job
+(
+ID number(4,0) not null enable,
+desciption varchar2(20),
+name varchar2(10),
+pay number(10,2) not null enable,
+deptid number(4,0),
+primary key(id),
+constraint fk1 foreign key(deptid) references department(deptid)
+)
+
+--创建考勤表
+create table attendanceinfo
+(
+    attinfoid number(4,0) not null,
+    absentdays number(2,0) not null,
+    affairleavedays number(2,0) not null,
+    attdate varchar2(10),
+    holidayotdays number(2,0) not null,
+    lateminutes number(3,0) not null,
+    leaveearlyminutes number(3,0) not null,
+    memo varchar2(50),
+    normalotdays number(2,0) not null,
+    ondays number(2,0) not null,
+    sickleavedays number(2,0) not null,
+    empid nunber(4,0),
+    primary key(attinfoid),
+    constraint fk32424 foreign key(empid) references employee(empid)
+)
+
+--创建用户信息表
+create table userinfo
+(
+    id number(4,0) not null,
+    username varchar2(10),
+    password varchar2(32),
+    starus number(2,0),
+    primary key(id)
+)
+
+--创建绩效表
+create table evaluation
+(
+    id number(4) not null,
+    cause varchar2(50),
+    evadate timestamp,
+    fines number(7,2) not null enable,
+    ip varchar2(20),
+    overalleva varchar2(50),
+    reward number(7,2) not null enable,
+    subject varchar2(20),
+    deptid number(4),
+    empid number(4),
+    primary key(id),
+    constraint fk444 foreign key(empid) references employee(empid),
+    constraint fk123141 foreign key(deptid) references department(deptid)
+)
+--创建唯一索引
+create unique index employee_uniqueindex on employee(empid);
+create unique index userInfo_uniqueindex on userinfo(id);
+
+--创建组合索引
+create index attendanceinfo_index on attendanceinfo(attinfoid,attdate);
+
+--创建函数索引
+create index employee_funindex on employee(to_char(hiredate,'hh24'));
+
+--创建位图索引
+create bitmap index employee_bitmap on employee(deptid);
+
+--检查索引是否已经创建
+select index_name from user_indexes where table_name='EMPLOYEE';
+
+--使用select查看表employee的索引信息
+select index_name,table_name,uniqueness,status from user_indexes where 
+table_name='EMPLOYEE';
+
+--删除索引
+drop index employee_funindex;
+drop index employee_uniqueindex;
+
+--创建私有同义词
+create synonym employee_syn for empoyee;
+create synonym userInfo_syn for UserInfo;
+
+--创建公有同义词
+create public synonym emp_syn for scott.emp;
+create public synonym department_syn for scott.department;
+create public synonym attendanceinfo_syn for scott.attendanceinfo;
+create public synonym evaluation_syn for scott.evaluation;
+create public synonym evaluationView_syn for scott.evaluationinfo_view;
+
+--查看employee表的公有同义词
+select * from user_synonyms where table_name='EMPLOYEE';
+
+--删除同义词
+drop public synonym emp_syn;
+
+--创建序列
+--部门信息表中字段deptid为唯一序列
+create sequence department_Seq
+minvalue 1
+increment by 1
+start with 1
+cache 20
+noorder
+nocycle;
+
+--职位信息表字段为empID的唯一序列字段
+create sequence Job_Seq
+minvalue 1
+increment by 1
+start with 1
+cache 20
+noorder
+nocycle;
+
+--定义雇员信息表中字段为empid为唯一序列字段
+create sequence employee_seq
+minvalue 1
+increment by 1
+start with 1
+cache 20
+noorder
+nocycle;
+
+--定义绩效日志表字段为id的唯一序列字段
+create sequence evaluation_Seq
+minvalue 1
+increment by 1
+start with 1
+cache 20
+noorder
+nocycle;
+
+--定义考勤信息表中字段attinfoID为唯一序列字段
+create sequence attendanceinfo_seq
+minvalue 1
+increment by 1
+start with 1
+cache 20
+noorder
+nocycle;
+
+--定义用户信息表中字段ID为唯一序列字段
+create sequence UserInfo_seq
+minvalue 1
+increment by 1
+start with 1
+cache 20
+noorder
+nocycle;
+
+--创建一个初始值为1000、增量为10、达到1100后重新从1000开始的递增序列employees_seq
+create sequence employees_seq
+minvalue 1000
+maxvalue 1100
+increment by 10;
+
+--修改序列employees_seq的增量为20，并且设置最大值为10000.
+create or replace sequence employees_seq 
+maxvalue 1000
+increment by 20;
+--向UserInfo表的ID列插入序列的下一个值,userName值为"admin"
+insert into userInfo('id','username') values(userinfo_seq.nextval,'admin'); 
+
+--删除序列
+drop sequence userinfo_seq;
+

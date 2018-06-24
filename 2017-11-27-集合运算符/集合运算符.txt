@@ -1,0 +1,11 @@
+select * from emp where sal<1000 union select * from emp where sal>3000;
+
+union all 所有的
+
+intersect 查询重复出现的记录
+
+minus 查询交集
+
+注意用集合运算符的时候，双方查询的字段都需要一模一样，要一模一样。
+
+

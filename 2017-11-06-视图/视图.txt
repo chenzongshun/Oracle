@@ -1,0 +1,56 @@
+-----------------------------简单视图-----------------------------
+
+在system中给创建视图的权限
+grant create view to scott;
+
+创建视图
+create view emp_view as select ename ,job, sal from emp;
+
+查看视图
+select * from emp_view;
+
+创建员工视图
+SQL> create view empsal_view as select ename,job,sal from emp where sal between 1000 and 3000;
+select * from empsal_view;
+
+带有检查约束的视图
+create or replace view empsal_view as select ename,job,sal from emp where sal between 1000 and 3000 with check option;
+如果在此时图上执行增删改查等操作，会要求新数据必须符合指定的约束条件
+
+
+更新员工工资字段等于5000，条件是名字为**
+update empsal_view set sal = 5000 where ename = 'ALLEN';就会出错，因为视图的创建时就添加了check条件，说修改时必须满足between 1000 and 3000
+
+如果希望它是只读的
+create or replace view empsal_view as select ename,job,sal from emp where sal between 1000 and 3000 with read only;
+
+
+
+-----------------------------复杂视图-----------------------------
+分组，计算平均工资
+create view sal_avg as select deptno,avg(sal) avgsal,count(*) total from emp group by deptno;
+column avgsal justify right format $99,999.00;设置金额显示的格式
+
+
+
+SQL> create view emp002_view as select empno,ename,dname,job,sal from emp,dept where emp.deptno = dept.deptno;
+select * from emp002_view;
+delete from emp002_view where empno = 7369;删除操作
+
+
+-----------------------------更改视图-----------------------------
+
+
+rename laoview to xiuview;改名
+drop view view_name;删视图，注意不会删除基表里面的数据内容
+
+select view_name,text from user_views;
+select table_name from user_tables;
+
+
+
+
+
+
+
+

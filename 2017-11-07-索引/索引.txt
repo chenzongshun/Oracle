@@ -1,0 +1,12 @@
+在system下grant create index to scott;授权创建索引
+
+create index empname_idx on emp(ename);创建一条单字段索引
+
+create index empje_idx on emp(ename,job);跨字段索引
+
+create index emp_count on emp(upper(ename));基于函数的索引
+select upper(ename) from emp;
+
+
+
+----------------------------修改索引----------------------------

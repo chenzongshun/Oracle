@@ -1,0 +1,14 @@
+declare
+vtoday date;
+vcnt number(8,0):=1000000;
+begin 
+select sysdate into vtoday from dual;
+for i in 1..vcnt loop
+	insert into emp001(id,name,sex,birth,phone) 
+	values(i,'name'||i,mod(i,2),vtoday-i,'phone'||i);
+	if(mod(i,100))=0 then
+		commit;
+	end if;
+end loop;
+end;
+/			--代表着结束

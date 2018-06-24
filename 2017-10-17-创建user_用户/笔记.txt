@@ -1,0 +1,53 @@
+创建用户
+create user ldzy identified by 123	创建一个名字叫ldzy的用户	
+default tablespace users
+temporary tablespace temp;
+
+但是创建完成之后就连普通的登录都不行
+所以要给予给他权限  首先登录系统的
+
+conn system/123@orcl
+
+系统权限的授权 SQL> grant create session to ldzy;
+然后再次打开sqlPlus，输入ldzy 123就可以登录了，但是目前仅仅只能够进行登录的这个操作
+ select * from emp;是查不到的，这个是conn scott/tiger@orcl的
+
+开始授权让他访问
+SQL> conn scott/tiger@orcl
+已连接。
+SQL> grant select on emp to ldzy;
+但是仅仅是把权限分配给他，查询的时候是要用select * from scott.emp;才能行
+
+
+如何回收权限
+SQL> conn scott/tiger@orcl
+已连接。
+SQL> revoke select on emp from ldzy;
+
+撤销成功。		成功之后用ldzy登录，输入select * from scott.emp;查询就没有权限了
+
+
+修改用户密码的操作
+SQL> conn system/123@orcl		//必须是在system环境下
+已连接。
+SQL> alter user ldzy identified by ldzy;
+
+用户已更改。
+
+
+
+删除用户的操作	//如果另一个dos窗口把待删除的用户给登录上去之后，就不能够进行删除的操作
+SQL> conn system/123
+已连接。
+SQL> drop user ldzy cascade;
+
+用户已删除。
+
+
+查询所有的用户
+SQL> conn system/123
+已连接。
+SQL> select username from dba_users;
+
+
+
